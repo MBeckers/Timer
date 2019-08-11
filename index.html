@@ -16,6 +16,9 @@
   </div>
   <script type="text/javascript">
   		const timerAddition = 5*60*1000;
+  		var timer30 = true;
+  		var timer15 = true;
+
   		document.getElementById("check15").checked = true;
   		document.getElementById("check30").checked = true;
   		var nextBounty = new Date().getTime() + timerAddition;
@@ -23,6 +26,8 @@
 
 		function reset() {
 			nextBounty = new Date().getTime() + timerAddition;
+			timer30 = true;
+  			timer15 = true;
 		}
 
 		function plus10() {
@@ -44,14 +49,19 @@
  			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
  			var audio = new Audio('Hand_of_Midas.mp3');
 
- 			if (seconds >= 29 && seconds <= 30 && minutes <=0 &&  
- 				document.getElementById("check30").checked) {
+ 			if (seconds >= 29 && seconds <= 31 && minutes <=0 &&  
+ 				document.getElementById("check30").checked && timer30) 
+ 			{
 				audio.play();
+				timer30 = false;
+
  			}
 
-			if (seconds >= 14 && seconds <= 15 && minutes <=0 &&
-				document.getElementById("check15").checked) {
+			if (seconds >= 14 && seconds <= 16 && minutes <=0 &&
+				document.getElementById("check15").checked && timer15) 
+			{
 				audio.play();
+				timer15 = false;
  			}
  			if (seconds <= 1 && minutes <=0) {
 		 		reset()
