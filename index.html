@@ -63,7 +63,7 @@
 				audio.play();
 				timer15 = false;
  			}
- 			if (seconds <= 1 && minutes <=0) {
+ 			if (seconds <= 0 && minutes <=0) {
 		 		reset()
  			}
 		}
@@ -71,7 +71,7 @@
 		function refresh() {
 			actualize();
 	  		checkTimers();
-			setTimeout("refresh()",1000);
+			setTimeout("refresh()",500);
 		}
 
 
