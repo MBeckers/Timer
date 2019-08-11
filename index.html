@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Dota Rune Timer</title>
+  </head>
+  <body>
+  	Bounty Runes in:
+  	<div class="results"></div>
+  	<div style="margin-top:50px">
+  		<button onclick="reset()">Reset</button>
+  		<button onclick="plus10()">+10</button>
+  		<button onclick="minus10()">-10</button>
+  		15s Warning: <input type="checkbox" id="check15">
+  		30s Warning: <input type="checkbox" id="check30">
+  </div>
+  <script type="text/javascript">
+  		const timerAddition = 5*60*1000;
+  		document.getElementById("check15").checked = true;
+  		document.getElementById("check30").checked = true;
+  		var nextBounty = new Date().getTime() + timerAddition;
+		refresh();
+
+		function reset() {
+			nextBounty = new Date().getTime() + timerAddition;
+		}
+
+		function plus10() {
+			nextBounty = nextBounty+10*1000;
+			actualize();
+		}
+
+
+		function minus10() {
+			nextBounty = nextBounty-10*1000;
+			actualize();
+		}
+
+
+		function checkTimers() {
+			var now = new Date().getTime();
+			var distance = nextBounty - now;
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+ 			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+ 			var audio = new Audio('Hand_of_Midas.mp3');
+
+ 			if (seconds >= 29 && seconds <= 30 && minutes <=0 &&  
+ 				document.getElementById("check30").checked) {
+				audio.play();
+ 			}
+
+			if (seconds >= 14 && seconds <= 15 && minutes <=0 &&
+				document.getElementById("check15").checked) {
+				audio.play();
+ 			}
+ 			if (seconds <= 1 && minutes <=0) {
+		 		reset()
+ 			}
+		}
+
+		function refresh() {
+			actualize();
+	  		checkTimers();
+			setTimeout("refresh()",1000);
+		}
+
+
+		function actualize() {
+			var now = new Date().getTime();
+			var distance = nextBounty - now;
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+ 			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	  		document.querySelector('.results').innerHTML = minutes+':'+seconds;
+		}  		
+  </script></body>
+</html>
